@@ -17,7 +17,7 @@ on:
 jobs:
   dev: 
    runs-on: ubuntu-latest 
-   environment: DEV
+   environment: dev
    steps:
      - uses: actions/checkout@v2
      - name: Run a script
@@ -25,7 +25,7 @@ jobs:
         echo "hiiii"
   staging: 
    runs-on: ubuntu-latest 
-   environment: STAGING
+   environment: stagging
    needs: dev
    steps:
      - uses: actions/checkout@v2
@@ -35,7 +35,7 @@ jobs:
   
   prod: 
    runs-on: ubuntu-latest 
-   environment: PROD
+   environment: prod
    needs: staging
    steps:
      - uses: actions/checkout@v2
