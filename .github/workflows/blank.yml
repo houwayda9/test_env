@@ -26,7 +26,7 @@ jobs:
   staging: 
    runs-on: ubuntu-latest 
    environment: stagging
-   needs: dev
+   
    steps:
      - uses: actions/checkout@v2
      - name: Run a script
@@ -36,7 +36,7 @@ jobs:
   prod: 
    runs-on: ubuntu-latest 
    environment: prod
-   needs: staging
+   
    steps:
      - uses: actions/checkout@v2
      - name: Run a script
