@@ -31,7 +31,7 @@ jobs:
      - uses: actions/checkout@v2
      - name: Run a script
        run: |
-        echo "The port for staging is ${{ env.PORT }}"
+         echo "The port for staging is ${{ env.port }}"
   
   prod: 
    runs-on: ubuntu-latest 
