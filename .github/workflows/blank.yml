@@ -1,34 +1,37 @@
 on:
+  push:
+    branches: 
+      - main
+      
   workflow_dispatch:
+
 env:
-  # Setting an environment variable with the value of a configuration variable
-  env_var: ${{ vars.ENV_CONTEXT_VAR }}
+  env_var: ${{ secrets.ENV_CONTEXT_VAR }}  # Replace with your actual secret name
 
 jobs:
   display-variables:
-    name: ${{ vars.JOB_NAME }}
-    # You can use configuration variables with the `vars` context for dynamic jobs
-    if: ${{ vars.USE_VARIABLES == 'true' }}
-    runs-on: ${{ vars.RUNNER }}
-    environment: ${{ vars.ENVIRONMENT_STAGE }}
+    name: ${{ secrets.JOB_NAME }}  # Replace with your actual secret name
+    if: ${{ secrets.USE_VARIABLES == 'true' }}  # Replace with your actual secret name
+    runs-on: ${{ secrets.RUNNER }}  # Replace with your actual secret name
+    environment: ${{ secrets.ENVIRONMENT_STAGE }}  # Replace with your actual secret name
     steps:
-    - name: Use variables
-      run: |
-        echo "repository variable : $REPOSITORY_VAR"
-        echo "organization variable : $ORGANIZATION_VAR"
-        echo "overridden variable : $OVERRIDE_VAR"
-        echo "variable from shell environment : $env_var"
-      env:
-        REPOSITORY_VAR: ${{ vars.REPOSITORY_VAR }}
-        ORGANIZATION_VAR: ${{ vars.ORGANIZATION_VAR }}
-        OVERRIDE_VAR: ${{ vars.OVERRIDE_VAR }}
-        
-    - name: ${{ vars.HELLO_WORLD_STEP }}
-      if: ${{ vars.HELLO_WORLD_ENABLED == 'true' }}
-      uses: actions/hello-world-javascript-action@main
-      with:
-        who-to-greet: ${{ vars.GREET_NAME }}
+      - name: Use variables
+        run: |
+          echo "repository variable: $REPOSITORY_VAR"
+          echo "organization variable: $ORGANIZATION_VAR"
+          echo "overridden variable: $OVERRIDE_VAR"
+          echo "variable from shell environment: $env_var"
+        env:
+          REPOSITORY_VAR: ${{ secrets.REPOSITORY_VAR }}  # Replace with your actual secret name
+          ORGANIZATION_VAR: ${{ secrets.ORGANIZATION_VAR }}  # Replace with your actual secret name
+          OVERRIDE_VAR: ${{ secrets.OVERRIDE_VAR }}  # Replace with your actual secret name
 
-    - name: ${{ vars.HELLO_WORLD_STEP }}
-      run: |
-        cat .env
+      - name: ${{ secrets.HELLO_WORLD_STEP }}  # Replace with your actual secret name
+        if: ${{ secrets.HELLO_WORLD_ENABLED == 'true' }}  # Replace with your actual secret name
+        uses: actions/hello-world-javascript-action@main
+        with:
+          who-to-greet: ${{ secrets.GREET_NAME }}  # Replace with your actual secret name
+
+      - name: ${{ secrets.HELLO_WORLD_STEP }}  # Replace with your actual secret name
+        run: |
+          cat .env  # Ensure .env file exists and contains expected variables
